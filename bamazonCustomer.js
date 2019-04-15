@@ -74,7 +74,7 @@ function buyProduct() {
                     function(error) {
                         if (error) throw err;
                         var total = chosenProduct.price * answer.numProducts;
-                        console.log("Your order was placed!" + "Your total is: " + total);
+                        console.log("Your order was placed!  " + "Your total is: " + total);
                         buyProduct();
                     }
                 );
