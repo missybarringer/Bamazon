@@ -28,7 +28,7 @@ connection.connect(function(err) {
     manageProducts();
 });
 
-// function which prompts the user for what action they should take
+// function which prompts the manager for what action they should take
   function manageProducts() {
     inquirer
       .prompt({
@@ -134,3 +134,60 @@ connection.connect(function(err) {
             });
       });
     }
+
+    function addNew() {
+        // prompt for info about the item being put up for auction
+        inquirer
+          .prompt([
+            {
+              name: "item",
+              type: "input",
+              message: "What is the item you would like to submit?"
+            },
+            {
+              name: "department_name",
+              type: "input",
+              message: "What department would you like to place your item in?"
+            },
+            {
+              name: "price",
+              type: "input",
+              message: "What is the price of the item?",
+              validate: function(value) {
+                if (isNaN(value) === false) {
+                  return true;
+                }
+                return false;
+              }
+            },
+            {
+              name: "stock_quantity",
+              type: "input",
+              message: "What is the stock quantity of the item?",
+              validate: function(value) {
+                if (isNaN(value) === false) {
+                  return true;
+                }
+                return false;
+              }
+            }
+          ])
+          .then(function(answer) {
+            // when finished prompting, insert a new item into the db with that info
+            connection.query(
+              "INSERT INTO products SET ?",
+              {
+                product_name: answer.item,
+                department_name: answer.department_name,
+                price: answer.price,
+                stock_quantity: answer.stock_quantity
+              },
+              function(err) {
+                if (err) throw err;
+                console.log("Your item was created successfully!");
+                manageProducts();
+              }
+            );
+          });
+      }
+      

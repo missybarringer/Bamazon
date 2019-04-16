@@ -11,6 +11,7 @@
 // require mysql & inquirer node packages
 var mysql = require("mysql");
 var inquirer = require("inquirer");
+var chalk = require("chalk"); // allows us to change the font color of console.log responses
 
 // create the connection information for the sql database
 var connection = mysql.createConnection({
@@ -39,17 +40,17 @@ function buyProduct() {
                 choices: function() {
                     var choiceArray = [];
                     for (var i = 0; i < results.length; i++) {
-                        choiceArray.push(results[i].product_name);
+                      choiceArray.push(results[i].product_name);
                     }
-                    return choiceArray;
+                      return choiceArray;
                 },
-                message: "What item would you like to purchase?"
-            },
-                {
+                message: chalk.magenta("What item would you like to purchase?")
+              },
+              {
                     name: "numProducts",
                     type: "input",
-                    message: "How many units would you like to purchase?"
-                }
+                    message: chalk.yellow("How many units would you like to purchase?")
+              }
             ])
             .then(function(answer) {
                 var chosenProduct;
@@ -58,7 +59,6 @@ function buyProduct() {
                         chosenProduct = results[i];
                     }
                 }
-                console.log(chosenProduct);
                 //determine if there is enough stock
                 if (chosenProduct.stock_quantity > parseInt(answer.numProducts)) {
                     connection.query(
@@ -74,17 +74,16 @@ function buyProduct() {
                     function(error) {
                         if (error) throw err;
                         var total = chosenProduct.price * answer.numProducts;
-                        console.log("Your order was placed!  " + "Your total is: " + total);
+                        console.log(chalk.green.bold("Your order was placed!  " + "Your total is: " + total));
                         buyProduct();
                     }
                 );
-            } else {
-                console.log(chosenProduct.stock_quantity);
-                console.log(answer.numProducts);
-                console.log("There was not enough stock to place your order...");
-                buyProduct();
-            }
-            // + " | " + results[i].price + " | " + results[i].department_name + " | " + results[i].stock_quantity
+                } else {
+                    console.log(chosenProduct.stock_quantity);
+                    console.log(answer.numProducts);
+                    console.log(chalk.green.bold("There was not enough stock to place your order..."));
+                    buyProduct();
+                }
             });
     });
 }
