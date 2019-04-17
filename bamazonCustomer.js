@@ -7,6 +7,7 @@
 // check stock level to see if there is enough,
 // if yes place the order, decrease the quantity & tell them the total price
 // if no say 'Insufficient quantity'
+//   Added to portfolio https://missybarringer.github.io/
 
 // require mysql & inquirer node packages
 var mysql = require("mysql");
