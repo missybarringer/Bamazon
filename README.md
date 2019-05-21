@@ -3,54 +3,42 @@
 ## Contributors
 @missybarringer
 ____________________________________
-## Technology
-* Command line game using Javascript and Constructors
+## Links
 * [GitHub Repository Link](https://github.com/missybarringer/Bamazon.git)
 * [Click here to View the Customer App in action](http://www.webwabisabi.com/assets/media/BamazonCustomer.mp4)
 * [Click here to View the Manager App in action](http://www.webwabisabi.com/assets/media/BamazonManager.webm)
 ____________________________________
-## Instructions
+## Technology
+* Command line game using Javascript and Constructors
+* Node & mySQL were used
+* Inquirer (for prompts) & chalk (for command line colors) NPM packages
+____________________________________
 
-### Challenge #1: Customer View (Minimum Requirement)
+### The Problem: Customer View
 
-1. Create a MySQL Database called `bamazon`.
+This Amazon-like storefront needed a way for customers to interact with the items in the mySQL database.
+### The Solution:
+I created a Node application called `bamazonCustomer.js`. Running this application will first display all of the items available for sale. Include the ids, names, and prices of products for sale.
 
-2. Then create a Table inside of that database called `products`.
+The app then prompts the users with two messages.
 
-3. The products table should have each of the following columns:
+   * The first asks them the ID of the product they would like to buy.
+   * The second asks how many units of the product they would like to buy.
 
-   * item_id (unique id for each product)
+Once the customer has places the order, the app checks to see if your store has enough of the product to meet the customer's request.
 
-   * product_name (Name of product)
+   * The app says `There was not enough stock to place your order...`, and then prevents the order from going through.
 
-   * department_name
+If the store _does_ have enough of the product, the app fulfills the customer's order by:
+   * Updating the SQL database to reflect the remaining quantity.
+   * Then once the update goes through, it shows the customer the total cost of their purchase.
 
-   * price (cost to customer)
+### The Problem: Manager View
 
-   * stock_quantity (how much of the product is available in stores)
-
-4. Populate this database with around 10 different products. (i.e. Insert "mock" data rows into this database and table).
-
-5. Then create a Node application called `bamazonCustomer.js`. Running this application will first display all of the items available for sale. Include the ids, names, and prices of products for sale.
-
-6. The app should then prompt users with two messages.
-
-   * The first should ask them the ID of the product they would like to buy.
-   * The second message should ask how many units of the product they would like to buy.
-
-7. Once the customer has placed the order, your application should check if your store has enough of the product to meet the customer's request.
-
-   * If not, the app should log a phrase like `Insufficient quantity!`, and then prevent the order from going through.
-
-8. However, if your store _does_ have enough of the product, you should fulfill the customer's order.
-   * This means updating the SQL database to reflect the remaining quantity.
-   * Once the update goes through, show the customer the total cost of their purchase.
-
-### Challenge #2: Manager View (Next Level)
-
-* Create a new Node application called `bamazonManager.js`. Running this application will:
-
-  * List a set of menu options:
+This Amazon-like storefront needed a way for the administrators to interact with the items in the mySQL database.
+### The Solution:
+I created a Node application called `bamazonManager.js`. Running this application will first display:
+  * A set of menu options:
 
     * View Products for Sale
     
@@ -60,13 +48,13 @@ ____________________________________
     
     * Add New Product
 
-  * If a manager selects `View Products for Sale`, the app should list every available item: the item IDs, names, prices, and quantities.
+  * If a manager selects `View Products for Sale`, the app lists every available item: the item IDs, names, prices, and quantities.
 
-  * If a manager selects `View Low Inventory`, then it should list all items with an inventory count lower than five.
+  * If a manager selects `View Low Inventory`, then it lists all items with an inventory count lower than five.
 
-  * If a manager selects `Add to Inventory`, your app should display a prompt that will let the manager "add more" of any item currently in the store.
+  * If a manager selects `Add to Inventory`, your app displays a prompt that will let the manager "add more" of any item currently in the store.
 
-  * If a manager selects `Add New Product`, it should allow the manager to add a completely new product to the store.
+  * If a manager selects `Add New Product`, it allows the manager to add a completely new product to the store.
 ____________________________________
 ## License
 *This product is licensed under the MIT License (MIT).
